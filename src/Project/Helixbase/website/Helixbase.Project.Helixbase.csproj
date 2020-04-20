@@ -14,6 +14,12 @@
     <Content Remove="Web.Release.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="sitecore\login\Helixbase_Wallpaper.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="sitecore\login\Helixbase_Wallpaper.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Views\Web.config" />
     <None Include="Web.config" />
     <None Include="Web.Debug.config" />

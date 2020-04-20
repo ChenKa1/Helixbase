@@ -76,6 +76,7 @@
     <None Include="Helixbase.Website.wpp.targets" />
     <None Include="Properties\PublishProfiles\Package.pubxml" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
+    <None Include="Properties\PublishProfiles\Docker.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

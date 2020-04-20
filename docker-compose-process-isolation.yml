@@ -1,0 +1,27 @@
+version: '2.4'
+
+services:
+
+  sql:
+    isolation: process
+
+  solr:
+    isolation: process
+
+  xconnect:
+    isolation: process
+
+  xconnect-automationengine:
+    isolation: process
+
+  xconnect-indexworker:
+    isolation: process
+
+  xconnect-processingengine:
+    isolation: process
+
+  cd:
+    isolation: process
+
+  cm:
+    isolation: process

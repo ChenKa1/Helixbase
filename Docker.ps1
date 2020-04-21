@@ -55,7 +55,7 @@ switch($options){
         
         # Warm Up CM AND CD
         $cmUrl = Get-CM_URL -IncludeProtocol
-        $cdUrl = Get-CM_URL -IncludeProtocol
+        $cdUrl = Get-CD_URL -IncludeProtocol
         Invoke-WarmUp_Sites `
             -CmUrl $cmUrl `
             -CdUrl $cdUrl

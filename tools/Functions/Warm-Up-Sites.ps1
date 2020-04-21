@@ -4,7 +4,7 @@ Function Invoke-WarmUp_Sites {
         [Parameter(Mandatory = $true)][string] $CdUrl
     )
 
-    Invoke-PingUrl $CmUrl
+    Invoke-PingUrl "$CmUrl/sitecore"
     Invoke-PingUrl $CdUrl
     Start-Process "$CmUrl/sitecore"
     Start-Process $CdUrl

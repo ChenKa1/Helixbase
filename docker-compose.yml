@@ -101,7 +101,7 @@ services:
     image: ${REGISTRY}sitecore-xp-cd:${SITECORE_VERSION}-windowsservercore-${WINDOWSSERVERCORE_VERSION}
     volumes:
       -  .\..\Application\data\cd:C:\inetpub\wwwroot\App_Data\logs
-      -  .\..\Application\Websites\${SOLUTION_NAME}.sc:C:\src
+      -  .\..\Application\Websites\${DOMAIN_SUFFIX}:C:\src
       -  ${REMOTE_DEBUGGER_PATH}:C:\remote_debugger:ro
     entrypoint: powershell.exe -Command "& C:\\tools\\entrypoints\\iis\\Development.ps1"
     ports:
@@ -128,7 +128,7 @@ services:
     image: ${REGISTRY}sitecore-xp-spe-standalone:${SITECORE_VERSION}-windowsservercore-${WINDOWSSERVERCORE_VERSION}
     volumes:
       -  .\..\Application\data\cm:C:\inetpub\wwwroot\App_Data\logs
-      -  .\..\Application\Websites\${SOLUTION_NAME}.sc:C:\src
+      -  .\..\Application\Websites\${DOMAIN_SUFFIX}:C:\src
       -  .\src:c:\unicorn\
       -  ${REMOTE_DEBUGGER_PATH}:C:\remote_debugger:ro
     entrypoint: powershell.exe -Command "& C:\\tools\\entrypoints\\iis\\Development.ps1"

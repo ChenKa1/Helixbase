@@ -1,13 +1,14 @@
 <img src="https://nshackblog.files.wordpress.com/2017/02/helixbase1.png" height="154px" width="200px" /><br />
 A Sitecore Helix based solution which can be used for Greenfield projects. Tackles some common problems when working with the platform.
 
-<img src="https://nshack31.visualstudio.com/Helix Base/_apis/build/status/Helix%20Base%20CI?branchName=master"/>
+<img src="https://nshack31.visualstudio.com/Helix Base/_apis/build/status/Helix%20Base%20CI?branchName=master"/> ![ASP.NET CI](https://github.com/muso31/Helixbase/workflows/ASP.NET%20CI/badge.svg)
 
 #### Features include:
 
 * Glass Mapper v5 - with fluent configuration and automated mapping registration
 * Unicorn - including user and role sync
 * Sitecore 9.3 ready
+* Pre compiled Razor views
 * Bootstrap v4
 * Native dependency injection with auto controller registration
 * A sample hero banner feature and sample site project for demonstration

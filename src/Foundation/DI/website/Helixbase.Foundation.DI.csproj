@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <LangVersion>8.0</LangVersion>
@@ -13,9 +13,19 @@
     <Content Remove="Web.Release.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="App_Config\Include\Foundation\Foundation.DI.RegisterControllers.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Config\Include\Foundation\Foundation.DI.RegisterControllers.config" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Web.config" />
-    <None Include="Web.Debug.config" />
-    <None Include="Web.Release.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" Version="2.0.1" />

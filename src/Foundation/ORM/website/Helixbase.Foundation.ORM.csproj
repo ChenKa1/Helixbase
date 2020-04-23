@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <LangVersion>8.0</LangVersion>
@@ -13,9 +13,25 @@
     <Content Remove="Web.Release.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="App_Config\Include\Foundation\Foundation.ORM.RegisterContainer.config" />
+    <None Remove="App_Config\Include\Foundation\Foundation.ORM.RegisterMappings.config" />
+    <None Remove="App_Config\Include\Glass\Glass.Mapper.Sc.config" />
+    <None Remove="App_Config\Include\Glass\Glass.Mapper.Sc.Start.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Config\Include\Foundation\Foundation.ORM.RegisterContainer.config" />
+    <Content Include="App_Config\Include\Foundation\Foundation.ORM.RegisterMappings.config" />
+    <Content Include="App_Config\Include\Glass\Glass.Mapper.Sc.config" />
+    <Content Include="App_Config\Include\Glass\Glass.Mapper.Sc.Start.config" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Web.config" />
-    <None Include="Web.Debug.config" />
-    <None Include="Web.Release.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Glass.Mapper.Sc.93" Version="5.6.160" />

@@ -16,7 +16,7 @@ Function Invoke-PingUrl {
     )
 
     Write-Host "$(Get-Date -Format HH:mm:ss): Warming up $($Url)" -ForegroundColor Green
-	$responsePassed = $false;
+	
 	Do {
 		$time = Measure-Command {
 			try {
@@ -29,22 +29,10 @@ Function Invoke-PingUrl {
 	
 		$secs = $time.TotalSeconds
 		
-		if ($res.StatusCode -eq 200) 
-		{
-			$responsePassed = $true
-		} 
-		elseif ($res.StatusCode -eq 302) 
-		{
-			# If redirected to the nolayout.aspx page (This could happen on a first time build).
-			if($Results.Headers.Location.StartsWith("/sitecore/service/nolayout.aspx")) {
-				$responsePassed = $true
-			}
-		} 
-
 		if(-not($null -eq $res))
 		{
 			Write-Host "`t$($res.StatusCode) from $($Url) in $($secs)s" -ForegroundColor Yellow
 		}
-	} While ($responseOK -eq $false)
+	} While ($res.StatusCode -ne 200)
 }
 

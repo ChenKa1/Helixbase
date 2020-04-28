@@ -1,11 +1,13 @@
 # --------------------------------------------------------------------
-# Run Docker
+# Run Docker - Helixbase
 # --------------------------------------------------------------------
-
 
 # --------------------------------------------------------------------
 # Setup
 # --------------------------------------------------------------------
+$ErrorActionPreference = "STOP"
+$ProgressPreference = "SilentlyContinue"
+
 # Import Powershell Functions
 Get-ChildItem "$PSScriptRoot\Tools\Functions" -Filter *.ps1 | Foreach-Object {
     . $_.FullName
@@ -14,6 +16,25 @@ Get-ChildItem "$PSScriptRoot\Tools\Functions" -Filter *.ps1 | Foreach-Object {
 # Set Environment Variables
 Set-LocalEnvironmentVariables
 Set-CustomLocalEnvironmentVariables
+
+# --------------------------------------------------------------------
+# Functions
+# --------------------------------------------------------------------
+Function Invoke-WarmUpSites {
+    $newHostEntryValues = Get-NewHostEntryValues
+    if($newHostEntryValues.Count -eq 0) {
+        Write-Error "Docker Compose failed. Please check your setup."
+        Exit
+    }
+    Set-HostEntries -Entries $newHostEntryValues
+
+    # Warm Up CM AND CD
+    $cmUrl = Get-CM_URL -IncludeProtocol
+    $cdUrl = Get-CD_URL -IncludeProtocol
+    Invoke-WarmUp_Sites `
+        -CmUrl $cmUrl `
+        -CdUrl $cdUrl
+}
 
 # --------------------------------------------------------------------
 # Tasks
@@ -32,33 +53,17 @@ $options = $host.ui.PromptForChoice("What would you like to do?", "Select an opt
 switch($options){
     0 { 
         # Docker Compose
-
         Invoke-DockerUp_HyperV_Isolation 
 
-        $newHostEntryValues = Get-NewHostEntryValues
-        Set-HostEntries -Entries $newHostEntryValues
-
-        # Warm Up CM AND CD
-        $cmUrl = Get-CM_URL -IncludeProtocol
-        $cdUrl = Get-CM_URL -IncludeProtocol
-        Invoke-WarmUp_Sites `
-            -CmUrl $cmUrl `
-            -CdUrl $cdUrl
+        #Warm Up Sites
+        Invoke-WarmUpSites
     }
     1 { 
         # Docker Compose
         Invoke-DockerUp_Process_Isolation 
         
-        # Set Host File Entries
-        $newHostEntryValues = Get-NewHostEntryValues
-        Set-HostEntries -Entries $newHostEntryValues
-        
-        # Warm Up CM AND CD
-        $cmUrl = Get-CM_URL -IncludeProtocol
-        $cdUrl = Get-CD_URL -IncludeProtocol
-        Invoke-WarmUp_Sites `
-            -CmUrl $cmUrl `
-            -CdUrl $cdUrl
+        #Warm Up Sites
+        Invoke-WarmUpSites
     }
     2 { 
         Reset-IIS-Servers @("cm","cd")

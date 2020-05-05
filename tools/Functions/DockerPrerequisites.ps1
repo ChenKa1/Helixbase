@@ -1,17 +1,21 @@
 Function Invoke-DockerPrerequisites {
-    $rootPath = "$(Get-Item ../)\Application\data"
-    $applicationFolderPath = "$(Get-Item ../)\Application"
-    $domainSuffix = $env:DOMAIN_SUFFIX 
+    param (
+        [Parameter(Mandatory = $true)][string] $RootPath,
+        [Parameter(Mandatory = $true)][string] $DomainSuffix
+    )
 
-    New-Item -ItemType directory -Force -Path "$rootPath\cd" | Out-Null
-    New-Item -ItemType directory -Force -Path "$rootPath\cm" | Out-Null
-    New-Item -ItemType directory -Force -Path "$rootPath\solr" | Out-Null
-    New-Item -ItemType directory -Force -Path "$rootPath\sql" | Out-Null
-    New-Item -ItemType directory -Force -Path "$rootPath\xconnect" | Out-Null
-    New-Item -ItemType directory -Force -Path "$rootPath\xconnect-automationengine" | Out-Null
-    New-Item -ItemType directory -Force -Path "$rootPath\xconnect-indexworker" | Out-Null
-    New-Item -ItemType directory -Force -Path "$rootPath\xconnect-processingengine" | Out-Null
-    New-Item -ItemType directory -Force -Path "$ \Websites\$domainSuffix" | Out-Null
+    $dataFolderPath = "$RootPath\_Application\data"
+    $applicationFolderPath = "$RootPath\_Application"
+
+    New-Item -ItemType directory -Force -Path "$dataFolderPath\cd" | Out-Null
+    New-Item -ItemType directory -Force -Path "$dataFolderPath\cm" | Out-Null
+    New-Item -ItemType directory -Force -Path "$dataFolderPath\solr" | Out-Null
+    New-Item -ItemType directory -Force -Path "$dataFolderPath\sql" | Out-Null
+    New-Item -ItemType directory -Force -Path "$dataFolderPath\xconnect" | Out-Null
+    New-Item -ItemType directory -Force -Path "$dataFolderPath\xconnect-automationengine" | Out-Null
+    New-Item -ItemType directory -Force -Path "$dataFolderPath\xconnect-indexworker" | Out-Null
+    New-Item -ItemType directory -Force -Path "$dataFolderPath\xconnect-processingengine" | Out-Null
+    New-Item -ItemType directory -Force -Path "$applicationFolderPath\Websites\$DomainSuffix" | Out-Null
     
     $requiredWindowsVersion = (new-object 'Version' 10,0,17763,0)
     $currentWindowsVersion = [Environment]::OSVersion.Version;

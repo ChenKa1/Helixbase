@@ -5,7 +5,7 @@ services:
   sql:
     image: ${REGISTRY}sitecore-xp-spe-sqldev:${SITECORE_VERSION}-windowsservercore-${WINDOWSSERVERCORE_VERSION}
     volumes:
-      -  .\..\Application\data\sql:C:\Data
+      -  .\_Application\data\sql:C:\Data
     mem_limit: 2GB
     ports:
       - "44010:1433"
@@ -16,7 +16,7 @@ services:
   solr:
     image: ${REGISTRY}sitecore-xp-solr:${SITECORE_VERSION}-nanoserver-${NANOSERVER_VERSION}
     volumes:
-      -  .\..\Application\data\solr:C:\Data
+      -  .\_Application\data\solr:C:\Data
     mem_limit: 1GB
     ports:
       - "44011:8983"
@@ -24,7 +24,7 @@ services:
   xconnect:
     image: ${REGISTRY}sitecore-xp-xconnect:${SITECORE_VERSION}-windowsservercore-${WINDOWSSERVERCORE_VERSION}
     volumes:
-      - .\..\Application\data\xconnect:C:\inetpub\wwwroot\App_Data\logs
+      - .\_Application\data\xconnect:C:\inetpub\wwwroot\App_Data\logs
     mem_limit: 1GB
     environment:
       SITECORE_LICENSE: ${SITECORE_LICENSE}
@@ -46,7 +46,7 @@ services:
     image: ${REGISTRY}sitecore-xp-xconnect-automationengine:${SITECORE_VERSION}-windowsservercore-${WINDOWSSERVERCORE_VERSION}
     entrypoint: powershell.exe -Command "& C:\\tools\\entrypoints\\worker\\Development.ps1"
     volumes:
-      - .\..\Application\data\xconnect-automationengine:C:\worker\App_Data\logs
+      - .\_Application\data\xconnect-automationengine:C:\worker\App_Data\logs
     mem_limit: 500MB
     environment:
       SITECORE_LICENSE: ${SITECORE_LICENSE}
@@ -62,7 +62,7 @@ services:
     image: ${REGISTRY}sitecore-xp-xconnect-indexworker:${SITECORE_VERSION}-windowsservercore-${WINDOWSSERVERCORE_VERSION}
     entrypoint: powershell.exe -Command "& C:\\tools\\entrypoints\\worker\\Development.ps1"
     volumes:
-      - .\..\Application\data\xconnect-indexworker:C:\worker\App_Data\logs
+      - .\_Application\data\xconnect-indexworker:C:\worker\App_Data\logs
     mem_limit: 500MB
     environment:
       SITECORE_LICENSE: ${SITECORE_LICENSE}
@@ -78,7 +78,7 @@ services:
     image: ${REGISTRY}sitecore-xp-xconnect-processingengine:${SITECORE_VERSION}-windowsservercore-${WINDOWSSERVERCORE_VERSION}
     entrypoint: powershell.exe -Command "& C:\\tools\\entrypoints\\worker\\Development.ps1"
     volumes:
-      - .\..\Application\data\xconnect-processingengine:C:\worker\App_Data\logs
+      - .\_Application\data\xconnect-processingengine:C:\worker\App_Data\logs
     mem_limit: 500MB
     restart: unless-stopped
     environment:
@@ -100,8 +100,8 @@ services:
   cd:
     image: ${REGISTRY}sitecore-xp-cd:${SITECORE_VERSION}-windowsservercore-${WINDOWSSERVERCORE_VERSION}
     volumes:
-      -  .\..\Application\data\cd:C:\inetpub\wwwroot\App_Data\logs
-      -  .\..\Application\Websites\${DOMAIN_SUFFIX}:C:\src
+      -  .\_Application\data\cd:C:\inetpub\wwwroot\App_Data\logs
+      -  .\_Application\Websites\${DOMAIN_SUFFIX}:C:\src
       -  ${REMOTE_DEBUGGER_PATH}:C:\remote_debugger:ro
     entrypoint: powershell.exe -Command "& C:\\tools\\entrypoints\\iis\\Development.ps1"
     ports:
@@ -127,8 +127,8 @@ services:
   cm:
     image: ${REGISTRY}sitecore-xp-spe-standalone:${SITECORE_VERSION}-windowsservercore-${WINDOWSSERVERCORE_VERSION}
     volumes:
-      -  .\..\Application\data\cm:C:\inetpub\wwwroot\App_Data\logs
-      -  .\..\Application\Websites\${DOMAIN_SUFFIX}:C:\src
+      -  .\_Application\data\cm:C:\inetpub\wwwroot\App_Data\logs
+      -  .\_Application\Websites\${DOMAIN_SUFFIX}:C:\src
       -  .\src:c:\unicorn\
       -  ${REMOTE_DEBUGGER_PATH}:C:\remote_debugger:ro
     entrypoint: powershell.exe -Command "& C:\\tools\\entrypoints\\iis\\Development.ps1"

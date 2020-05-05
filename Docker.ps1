@@ -41,7 +41,7 @@ Function Invoke-WarmUpSites {
 # --------------------------------------------------------------------
 
 # Run Prerequisites
-Invoke-DockerPrerequisites
+Invoke-DockerPrerequisites -RootPath $PSScriptRoot -DomainSuffix $env:DOMAIN_SUFFIX
 
 $options = $host.ui.PromptForChoice("What would you like to do?", "Select an option", @(
     New-Object System.Management.Automation.Host.ChoiceDescription "Run Docker &Hyper-V isolation", "docker-hyperv"

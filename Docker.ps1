@@ -46,8 +46,9 @@ Invoke-DockerPrerequisites -RootPath $PSScriptRoot -DomainSuffix $env:DOMAIN_SUF
 $options = $host.ui.PromptForChoice("What would you like to do?", "Select an option", @(
     New-Object System.Management.Automation.Host.ChoiceDescription "Run Docker &Hyper-V isolation", "docker-hyperv"
     New-Object System.Management.Automation.Host.ChoiceDescription "Run Docker &Process isolation", "dokcer-process"
-    New-Object System.Management.Automation.Host.ChoiceDescription "IIS &Reset", "iisreset"
+    New-Object System.Management.Automation.Host.ChoiceDescription "&IIS Reset", "iisreset"
     New-Object System.Management.Automation.Host.ChoiceDescription "&Docker Down", "prerequisites"
+    New-Object System.Management.Automation.Host.ChoiceDescription "&Remove All", "removeall"
 ), 0)
 
 switch($options){
@@ -70,6 +71,9 @@ switch($options){
     }
     3 {
         Invoke-DockerDown
+    }
+    4 {
+        Invoke-ResetAll -RootPath $PSScriptRoot
     }
     
  }

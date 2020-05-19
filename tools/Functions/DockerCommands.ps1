@@ -107,3 +107,37 @@ Function Get-SOLR_URL {
     $domainSuffix = $env:DOMAIN_SUFFIX.ToLower()
     return "$($domainPrefix)solr.$domainSuffix"
 }
+
+Function Invoke-RemoveImages {
+    docker-compose down -v
+    docker inspect --format='{{.Id}} {{.Parent}}' $(docker images --filter=reference="$env:REGISTRY/*" since=<image_id> -q)
+    docker rmi {sub_image_id} 
+
+    docker inspect --format='{{.Id}} {{.Parent}}' \ $(docker images --filter since=f50f9524513f --quiet)
+
+    #docker rmi -f $(docker images --filter=reference="$env:REGISTRY/*" -q)
+}
+
+Function Invoke-RemoveLogsAndDatabses {
+    param(
+        [Parameter(Mandatory = $true)][string] $RootPath
+    )
+    Get-ChildItem -Path (Join-Path $RootPath "_Application") -Include * | Remove-Item -Recurse 
+}
+
+Function Invoke-ResetAll {
+    param(
+        [Parameter(Mandatory = $true)][string] $RootPath
+    )
+    Write-host "Are you sure you want to contiue? All images, logs and databases will be removed." -ForegroundColor Yellow 
+    $Readhost = Read-Host " ( y / n ) " 
+    Switch ($ReadHost) 
+     { 
+       Y {
+        Invoke-RemoveImages
+        Invoke-RemoveLogsAndDatabses -RootPath $RootPath
+       } 
+       N {} 
+       Default {} 
+     } 
+}
